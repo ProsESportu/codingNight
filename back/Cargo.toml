@@ -1,0 +1,26 @@
+[package]
+name = "back"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rspc = "0.2.0"
+axum = "0.7.7"
+rspc-axum = "0.1.1"
+tokio = { version = "1.40.0", features = ["full"] }
+tower-http = { version = "0.6.1", features = ["full"] }
+specta = "1.0.5"
+serde = { version = "1.0.210", features = ["derive"] }
+prisma-client-rust = { git = "https://github.com/Brendonovich/prisma-client-rust", tag = "0.6.11", default-features = false, features = [
+    "mongodb",
+    "rspc",
+] }
+prisma-client-rust-cli = { git = "https://github.com/Brendonovich/prisma-client-rust", tag = "0.6.11", default-features = false, features = [
+    "mongodb",
+    "rspc",
+] }
+# sha2 = "0.10.8"
+# password-hash = "0.5.0"
+# argon2 = "0.5.3"
+password-auth = "1.0.0"
+rand = "0.8.5"
