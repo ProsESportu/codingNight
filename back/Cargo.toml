@@ -24,3 +24,4 @@ prisma-client-rust-cli = { git = "https://github.com/Brendonovich/prisma-client-
 # argon2 = "0.5.3"
 password-auth = "1.0.0"
 rand = "0.8.5"
+base64 = "0.22.1"

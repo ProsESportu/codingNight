@@ -2,7 +2,15 @@
 
 export type Procedures = {
     queries: 
+        { key: "ping", input: never, result: [string, string] } | 
         { key: "version", input: never, result: string },
-    mutations: never,
+    mutations: 
+        { key: "create_user", input: UserMsg, result: Session } | 
+        { key: "login", input: UserMsg, result: Session } | 
+        { key: "logout", input: never, result: null },
     subscriptions: never
 };
+
+export type Session = { id: string; sessionId: number[]; createdAt: string; userId: string }
+
+export type UserMsg = { email: string; password: string }

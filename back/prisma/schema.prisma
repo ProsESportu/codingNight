@@ -1,6 +1,6 @@
 datasource db {
   provider = "mongodb"
-  url      = "mongodb://root:zsem123@127.0.0.1:27017/cn?authSource=admin"
+  url      = "mongodb://root:zsem123@127.0.0.1:27017/cn?authSource=admin&directConnection=true"
 }
 
 generator client {

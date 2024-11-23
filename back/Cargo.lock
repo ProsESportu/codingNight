@@ -221,6 +221,7 @@ name = "back"
 version = "0.1.0"
 dependencies = [
  "axum",
+ "base64 0.22.1",
  "password-auth",
  "prisma-client-rust",
  "prisma-client-rust-cli",

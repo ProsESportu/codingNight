@@ -1,9 +1,8 @@
 mod prisma;
 mod router;
-use std::sync::Arc;
-
+use base64::prelude::*;
 use router::AppState;
-use std::sync::Mutex;
+use std::sync::Arc;
 use tokio::net::TcpListener;
 #[tokio::main]
 async fn main() {
@@ -13,7 +12,25 @@ async fn main() {
     let app = axum::Router::new()
         .nest(
             "/rspc",
-            rspc_axum::endpoint(router, move || AppState { db }),
+            rspc_axum::endpoint(router, move |parts: axum::http::request::Parts| {
+                let mut session_id = None;
+
+                if let Some(header_value) = parts.headers.get("Authorization") {
+                    // println!("{:?}", header_value);
+                    if let Ok(e) = header_value.to_str() {
+                        if let Some((_, bearer)) = e.split_once(" ") {
+                            if let Ok(id) = BASE64_STANDARD.decode(bearer) {
+                                if id.len() == 32 {
+                                    let mut array = [0u8; 32];
+                                    array.copy_from_slice(&id);
+                                    session_id = Some(array);
+                                };
+                            };
+                        };
+                    };
+                };
+                AppState { db, session_id }
+            }),
         )
         .layer(cors);
     let listener = TcpListener::bind("0.0.0.0:3000").await.unwrap();
